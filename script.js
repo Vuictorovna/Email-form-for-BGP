@@ -53,7 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const email = data.value[0].email;
                 const firstName = encodeURIComponent(firstNameInput.value.trim());
                 const lastName = encodeURIComponent(lastNameInput.value.trim());
-                const mailtoLink = `mailto:${email}?subject=Message%20to%20${mpName}&body=Dear%20${mpName},%0A%0A[Your%20message%20here.]%0A%0ARegards,%0A${firstName}%20${lastName}`;
+                const bccEmail = "example@email.com"; // Add proper email
+                const mailtoLink = `mailto:${email}?subject=Message%20to%20${mpName}&body=Dear%20${mpName},%0A%0A[Your%20message%20here.]%0A%0ARegards,%0A${firstName}%20${lastName}&bcc=${bccEmail}`;
                 window.location.href = mailtoLink;
             }
         });
