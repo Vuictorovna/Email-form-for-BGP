@@ -9,27 +9,32 @@
     <script src="script.js" defer></script>
 </head>
 
+   
 <body>
     <div class="container">
         <h2>Contact your MP</h2>
         <div class="form-group">
-            <label for="postcode">Enter your postcode or constituency:</label>
-            <input type="text" id="postcode" placeholder="Type your postcode or constituency">
-
+            <label for="constituency">Enter your constituency:</label>
+            <input type="text" id="constituency" placeholder="Type your constituency">
+            <span id="constituencyError" class="error-message"></span>
         </div>
         
         <div class="form-group">
             <label for="firstName">First Name:</label>
             <input type="text" id="firstName" placeholder="Enter your first name">
+            <span id="firstNameError" class="error-message"></span>
         </div>
 
         <div class="form-group">
             <label for="lastName">Last Name:</label>
             <input type="text" id="lastName" placeholder="Enter your last name">
+            <span id="lastNameError" class="error-message"></span>
         </div>
 
-        <a href="#" id="emailButton" class="email-mp-btn">Email your MP</a>
+        <button id="emailButton" class="email-mp-btn">Email your MP</button>
     </div>
+    
 </body>
+    
 
 </html>
