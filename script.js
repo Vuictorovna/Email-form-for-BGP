@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const constituencyInput = document.getElementById('constituency');
+    const postcodeInput = document.getElementById('postcode');
     const emailButton = document.getElementById('emailButton');
     const firstNameInput = document.getElementById('firstName');
     const lastNameInput = document.getElementById('lastName');
@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const firstName = firstNameInput.value.trim();
         const lastName = lastNameInput.value.trim();
-        const constituency = constituencyInput.value.trim();
+        const postcode = postcodeInput.value.trim();
 
         // Validate First Name
         if (!firstName) {
@@ -32,18 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             document.getElementById('lastNameError').textContent = '';
         }
-
-        // Validate constituency
-        if (!constituency) {
-            document.getElementById('constituencyError').textContent = 'constituency must be provided';
-            valid = false;
-        } else {
-            document.getElementById('constituencyError').textContent = '';
-        }
-
+       
         return valid;
     }
-
 
     function fetchContactDetails(memberId, mpName) {
         fetch(`https://members-api.parliament.uk/api/Members/${memberId}/Contact`)
@@ -62,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     emailButton.addEventListener('click', () => {
         if (isValidForm()) { 
-            const query = encodeURIComponent(constituencyInput.value.trim());
+            const query = encodeURIComponent(postcodeInput.value.trim());
 
             fetch(`https://members-api.parliament.uk/api/Location/Constituency/Search?searchText=${query}&skip=0&take=1`)
         
@@ -72,10 +63,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     const mpInfo = data.items[0].value.currentRepresentation.member.value;
                     const mpName = mpInfo.nameDisplayAs;
                     const memberId = mpInfo.id;
-
                     fetchContactDetails(memberId, mpName);
+                } else {
+                    // Handle the case where no MPs are found
+                    document.getElementById('postcodeError').textContent = 'No such postcode. Enter valid information.';
                 }
+            })
+            .catch(error => {
+                // Handle any other errors
+                document.getElementById('postcodeError').textContent = 'An error occurred. Please try again.';
             });
         }
     });
 });
+
